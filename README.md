@@ -1,6 +1,10 @@
 # 🌍 OBLIVARA - Planetary Defense System
 
-you can see from the committs it has changed but due to the wrong link of deployment, but it is the same thing as the demo video!
+You can see from the committs it has changed but due to the wrong link of deployment, but it is the same thing as the demo video!
+The hossting link in gitHub doesn't work, you can run it through in the terminal:
+
+npm install
+npm run dev
 
 A NASA-level, professional-grade web application for asteroid tracking, impact simulation, and planetary defense planning.
 
@@ -27,3 +31,4 @@ A NASA-level, professional-grade web application for asteroid tracking, impact s
 ### Prerequisites
 - Node.js 16+ 
 - Modern web browser with WebGL support
+
