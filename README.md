@@ -6,6 +6,7 @@ The hossting link in gitHub doesn't work, you can run it through in the terminal
 npm install
 npm run dev
 
+--> Choose the FullScreen option to expand the Globe 
 A NASA-level, professional-grade web application for asteroid tracking, impact simulation, and planetary defense planning.
 
 ## 🚀 Features
@@ -31,4 +32,5 @@ A NASA-level, professional-grade web application for asteroid tracking, impact s
 ### Prerequisites
 - Node.js 16+ 
 - Modern web browser with WebGL support
+
 
