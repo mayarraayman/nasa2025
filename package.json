@@ -1,0 +1,22 @@
+{
+  "name": "oblivara",
+  "version": "1.0.0",
+  "description": "NASA-level Planetary Defense System",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.58.0",
+    "@tensorflow/tfjs": "^4.22.0",
+    "mapbox-gl": "^2.15.0",
+    "three": "^0.161.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0",
+    "vite": "^5.0.0"
+  }
+}

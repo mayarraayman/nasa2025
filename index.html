@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBLIVARA - Planetary Defense System</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/nasa-theme.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="./css/mapbox-space-theme.css">
+</head>
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="nasa-logo">OBLIVARA</div>
+            <div class="loading-subtitle">Initializing Planetary Defense Systems</div>
+            
+            <div class="loading-progress-container">
+                <div class="loading-progress-bar">
+                    <div class="loading-progress-fill" id="loadingProgress"></div>
+                </div>
+                <div class="loading-status" id="loadingStatus">Loading core systems...</div>
+            </div>
+            
+            <div class="loading-features">
+                <div class="feature-item" data-feature="earth">🌍 Earth Globe System</div>
+                <div class="feature-item" data-feature="asteroids">☄️ Asteroid Tracking</div>
+                <div class="feature-item" data-feature="defense">🛡️ Defense Systems</div>
+                <div class="feature-item" data-feature="simulation">💥 Impact Simulation</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app" class="app-container hidden">
+        <header class="nasa-header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">🛰️</span>
+                    <span class="logo-text">OBLIVARA</span>
+                </div>
+                <nav class="main-nav">
+                    <button class="nav-btn active" data-tab="impact-analysis">Impact Analysis</button>
+                    <button class="nav-btn" data-tab="asteroids">Asteroids</button>
+                    <button class="nav-btn" data-tab="defense">Defense</button>
+                    <button class="nav-btn" data-tab="simulation">Simulation</button>
+                </nav>
+            </div>
+            
+            <div class="header-right">
+                <div class="system-status">
+                    <span class="status-indicator online"></span>
+                    <span class="status-text">SYSTEMS NOMINAL</span>
+                </div>
+                
+                <select id="languageSelect" class="language-selector nasa-input">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="ar">العربية</option>
+                    <option value="ja">日本語</option>
+                </select>
+                
+                <button class="settings-btn nasa-button" id="settingsBtn">Settings</button>
+                <button class="fullscreen-btn nasa-button" id="fullscreenBtn">Fullscreen</button>
+            </div>
+        </header>
+
+        <main class="impact-analysis-main">
+            <div class="mapbox-visualization-container">
+                <div id="mapbox-globe" class="mapbox-globe-container"></div>
+                
+                <div class="layers-panel">
+                    <div class="layers-header">
+                        <h2 class="layers-title">Control Center</h2>
+                        <button class="panel-minimize" id="minimize-layers">−</button>
+                    </div>
+                    
+                    <div class="layer-category">
+                        <div class="layer-category-header">
+                            <span class="layer-category-icon">🌍</span>
+                            Visualization
+                        </div>
+                        
+                        <div class="layer-control active" data-layer="asteroids">
+                            <span class="layer-label">Asteroid Orbits</span>
+                            <div class="toggle-switch active"></div>
+                        </div>
+                        
+                        <div class="layer-control active" data-layer="buildings">
+                            <span class="layer-label">3D Buildings</span>
+                            <div class="toggle-switch active"></div>
+                        </div>
+                        
+                        <div class="layer-control active" data-layer="impact-beams">
+                            <span class="layer-label">Impact Beams</span>
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="layer-category">
+                        <div class="layer-category-header">
+                            <span class="layer-category-icon">📏</span>
+                            Impact Scale
+                        </div>
+                        
+                        <div class="range-control">
+                            <label class="layer-label">Building Height</label>
+                            <input type="range" class="range-slider" id="building-height" min="0" max="200" value="100">
+                            <div class="range-value">100</div>
+                        </div>
+                        
+                        <div class="range-control">
+                            <label class="layer-label">Impact Intensity</label>
+                            <input type="range" class="range-slider" id="impact-intensity" min="1" max="10" value="5">
+                            <div class="range-value">5</div>
+                        </div>
+                    </div>
+                    
+                    <div class="layer-category">
+                        <div class="layer-category-header">
+                            <span class="layer-category-icon">🚀</span>
+                            Simulation
+                        </div>
+                        
+                        <button class="control-button primary" id="simulate-impact">Simulate Impact</button>
+                        <button class="control-button secondary" id="add-asteroid">Add Asteroid</button>
+                        <button class="control-button secondary" id="reset-view">Reset View</button>
+                    </div>
+                </div>
+                
+                <div class="data-panel">
+                    <div class="data-panel-header">
+                        <h3 class="data-panel-title">Threat Analysis</h3>
+                        <button class="panel-minimize" id="minimize-data">−</button>
+                    </div>
+                    <div class="data-panel-content">
+                        <div class="threat-card active">
+                            <div class="threat-title">Active Threats</div>
+                            <div class="threat-details">
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Impact Trajectories:</span>
+                                    <span class="threat-detail-value danger">🔴 3 Active</span>
+                                </div>
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Primary Target:</span>
+                                    <span class="threat-detail-value">San Francisco</span>
+                                </div>
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Threat Level:</span>
+                                    <span class="threat-detail-value warning">🟡 HIGH</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="threat-card">
+                            <div class="threat-title">Asteroid Bennu</div>
+                            <div class="threat-details">
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Diameter:</span>
+                                    <span class="threat-detail-value">0.49 km</span>
+                                </div>
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Velocity:</span>
+                                    <span class="threat-detail-value">25 km/s</span>
+                                </div>
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Impact Probability:</span>
+                                    <span class="threat-detail-value danger">0.037%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="threat-card">
+                            <div class="threat-title">Defense Systems</div>
+                            <div class="threat-details">
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Status:</span>
+                                    <span class="threat-detail-value success">🟢 ACTIVE</span>
+                                </div>
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Satellites:</span>
+                                    <span class="threat-detail-value">12 Online</span>
+                                </div>
+                                <div class="threat-detail-row">
+                                    <span class="threat-detail-label">Response Time:</span>
+                                    <span class="threat-detail-value">45 minutes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div id="asteroids-tab" class="tab-overlay hidden">
+            <div class="overlay-content">
+                <div class="overlay-header">
+                    <h2>Asteroid Database</h2>
+                    <button class="close-overlay">&times;</button>
+                </div>
+                <div class="asteroid-grid">
+                    <div class="asteroid-item">
+                        <div class="asteroid-name">Bennu</div>
+                        <div class="asteroid-details">Diameter: 0.49km | Risk: Medium</div>
+                    </div>
+                    <div class="asteroid-item">
+                        <div class="asteroid-name">Apophis</div>
+                        <div class="asteroid-details">Diameter: 0.37km | Risk: High</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="defense-tab" class="tab-overlay hidden">
+            <div class="overlay-content">
+                <div class="overlay-header">
+                    <h2>Defense Systems</h2>
+                    <button class="close-overlay">&times;</button>
+                </div>
+                <div class="defense-options">
+                    <div class="defense-option">
+                        <div class="option-title">Nuclear Deflection</div>
+                        <div class="option-status">Ready</div>
+                    </div>
+                    <div class="defense-option">
+                        <div class="option-title">Kinetic Impactor</div>
+                        <div class="option-status">Active</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="simulation-tab" class="tab-overlay hidden">
+            <div class="overlay-content">
+                <div class="overlay-header">
+                    <h2>Impact Simulation</h2>
+                    <button class="close-overlay">&times;</button>
+                </div>
+                <div class="simulation-controls">
+                    <div class="sim-control">
+                        <label>Asteroid Size (km)</label>
+                        <input type="range" min="0.1" max="10" value="1" step="0.1">
+                    </div>
+                    <div class="sim-control">
+                        <label>Impact Velocity (km/s)</label>
+                        <input type="range" min="10" max="50" value="25">
+                    </div>
+                    <button class="run-simulation">Run Simulation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script>
+        window.mapboxgl = mapboxgl;
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWF5YXJyYWF5bWFuIiwiYSI6ImNtZ2FnYXhiejBzeDYyaXF3aTVpYXdodjgifQ.eXorIlV1O_IQqBMetJVShg';
+    </script>
+    <script type="module" src="./src/app.js"></script>
+</body>
+</html>

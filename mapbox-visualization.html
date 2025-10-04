@@ -1,0 +1,746 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBLIVARA - Planetary Threat Detection System</title>
+    
+    <!-- Mapbox CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./css/nasa-theme.css">
+    <link rel="stylesheet" href="./css/mapbox-space-theme.css">
+</head>
+<body>
+    <div class="mapbox-visualization-container">
+        <!-- Main Mapbox Container -->
+        <div id="mapbox-globe" class="mapbox-globe-container"></div>
+        
+        <!-- Left Sidebar - Layers Panel -->
+        <div class="layers-panel">
+            <div class="layers-header">
+                <h2 class="layers-title">Layers</h2>
+            </div>
+            
+            <!-- Basic Layers -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">🌍</span>
+                    Basic
+                </div>
+                
+                <div class="layer-control active" data-layer="basic">
+                    <span class="layer-label">Basic</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+                
+                <div class="layer-control active" data-layer="layer-type">
+                    <span class="layer-label">Layer Type</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+            </div>
+            
+            <!-- Polygons & Buildings -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">🏗️</span>
+                    Polygon
+                </div>
+                
+                <div class="layer-control active" data-layer="polygon">
+                    <span class="layer-label">Polygon</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+                
+                <div class="layer-control active" data-layer="color">
+                    <span class="layer-label">Color</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+                
+                <!-- Color Gradient -->
+                <div class="range-control">
+                    <div class="color-gradient"></div>
+                </div>
+            </div>
+            
+            <!-- Height Controls -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">📏</span>
+                    Polygon Height
+                </div>
+                
+                <div class="range-control">
+                    <input type="range" class="range-slider" id="polygon-height" min="0" max="100" value="50">
+                    <div class="range-value">50</div>
+                </div>
+                
+                <div class="layer-control active" data-layer="enable-height">
+                    <span class="layer-label">Enable Height</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+                
+                <div class="layer-control active" data-layer="polygon-stroke">
+                    <span class="layer-label">Polygon Stroke</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+            </div>
+            
+            <!-- Scale Controls -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">🔧</span>
+                    Scale
+                </div>
+                
+                <div class="range-control">
+                    <label class="layer-label">Polygon Scale</label>
+                    <input type="range" class="range-slider" id="polygon-scale" min="0" max="2" step="0.1" value="1">
+                    <div class="range-value">1.0</div>
+                </div>
+                
+                <div class="range-control">
+                    <label class="layer-label">Elevation Scale</label>
+                    <input type="range" class="range-slider" id="elevation-scale" min="0" max="3" step="0.1" value="1.5">
+                    <div class="range-value">1.5</div>
+                </div>
+            </div>
+            
+            <!-- Rendering Options -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">⚙️</span>
+                    Rendering
+                </div>
+                
+                <div class="layer-control active" data-layer="high-precision">
+                    <span class="layer-label">High Precision Rendering</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Data Panel -->
+        <div class="data-panel">
+            <div class="data-panel-header">
+                <h3 class="data-panel-title">Rivers</h3>
+            </div>
+            <div class="data-panel-content">
+                <!-- Threat Information -->
+                <div class="threat-card">
+                    <div class="threat-title">Toms Upstream</div>
+                    <div class="threat-details">
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Segments:</span>
+                            <span class="threat-detail-value">🟡 17,10m</span>
+                        </div>
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Length:</span>
+                            <span class="threat-detail-value">🟡 150°</span>
+                        </div>
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Distance:</span>
+                            <span class="threat-detail-value">77 230km</span>
+                        </div>
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Width:</span>
+                            <span class="threat-detail-value">500 93km</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Debris Information -->
+                <div class="threat-card">
+                    <div class="threat-title">Debris-17o BF3 ⚠️ Potent</div>
+                    <div class="threat-details">
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Normalized:</span>
+                            <span class="threat-detail-value">✓</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Threat Team Information -->
+                <div class="threat-card">
+                    <div class="threat-title">🟦 Zenshuinlb</div>
+                    <div class="threat-details">
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Threat team:</span>
+                            <span class="threat-detail-value">Geo P: 1</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Moon Event -->
+                <div class="threat-card">
+                    <div class="threat-title">Meanor Event</div>
+                    <div class="threat-details">
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">West End Gap:</span>
+                            <span class="threat-detail-value">499.5%</span>
+                        </div>
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Distance:</span>
+                            <span class="threat-detail-value">43.32 km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Control Bar -->
+        <div class="control-bar">
+            <button class="control-btn active" id="add-data-btn">+ ADD DATA</button>
+            <button class="control-btn" id="reset-view-btn">Reset View</button>
+            <button class="control-btn" id="demo-threats-btn">Demo Threats</button>
+            <button class="control-btn" id="fly-sf-btn">Fly to San Francisco</button>
+        </div>
+        
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Mapbox JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    
+    <!-- Our JavaScript -->
+    <script type="module">
+        import { MapboxGlobe } from './src/mapboxGlobe.js';
+        
+        // Global variables
+        let globeVisualization = null;
+        
+        // Initialize the application
+        async function initializeApp() {
+            try {
+                console.log('🚀 Starting OBLIVARA Planetary Threat Detection System...');
+                
+                // Initialize the Mapbox Globe
+                globeVisualization = new MapboxGlobe('mapbox-globe');
+                await globeVisualization.initialize();
+                
+                console.log('✅ Mapbox Globe initialized successfully');
+                
+                // Setup UI event handlers
+                setupUIHandlers();
+                
+                // Hide loading overlay
+                document.getElementById('loading-overlay').style.display = 'none';
+                
+                console.log('🌍 OBLIVARA system fully operational');
+                
+            } catch (error) {
+                console.error('❌ Failed to initialize OBLIVARA system:', error);
+                // Show error message to user
+                document.getElementById('loading-overlay').innerHTML = `
+                    <div style="text-align: center; color: #ff4444;">
+                        <h3>System Initialization Failed</h3>
+                        <p>${error.message}</p>
+                        <button onclick="location.reload()">Retry</button>
+                    </div>
+                `;
+            }
+        }
+        
+        function setupUIHandlers() {
+            // Layer toggle handlers
+            document.querySelectorAll('.layer-control').forEach(control => {
+                control.addEventListener('click', function() {
+                    const toggle = this.querySelector('.toggle-switch');
+                    const isActive = toggle.classList.contains('active');
+                    
+                    if (isActive) {
+                        toggle.classList.remove('active');
+                        this.classList.remove('active');
+                    } else {
+                        toggle.classList.add('active');
+                        this.classList.add('active');
+                    }
+                    
+                    // Handle layer visibility
+                    const layerName = this.getAttribute('data-layer');
+                    handleLayerToggle(layerName, !isActive);
+                });
+            });
+            
+            // Range slider handlers
+            document.querySelectorAll('.range-slider').forEach(slider => {
+                slider.addEventListener('input', function() {
+                    const value = this.value;
+                    const valueDisplay = this.parentElement.querySelector('.range-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = value;
+                    }
+                    
+                    // Handle range changes
+                    handleRangeChange(this.id, parseFloat(value));
+                });
+            });
+            
+            // Control button handlers
+            document.getElementById('add-data-btn').addEventListener('click', () => {
+                console.log('Adding demo data...');
+                globeVisualization.addDemoThreats();
+            });
+            
+            document.getElementById('reset-view-btn').addEventListener('click', () => {
+                console.log('Resetting view...');
+                globeVisualization.resetView();
+            });
+            
+            document.getElementById('demo-threats-btn').addEventListener('click', () => {
+                console.log('Adding demo threats...');
+                globeVisualization.addDemoThreats();
+            });
+            
+            document.getElementById('fly-sf-btn').addEventListener('click', () => {
+                console.log('Flying to San Francisco...');
+                globeVisualization.flyToLocation([-122.4194, 37.7749], 12, 60, 45);
+            });
+            
+            // Window resize handler
+            window.addEventListener('resize', () => {
+                if (globeVisualization) {
+                    globeVisualization.handleResize();
+                }
+            });
+        }
+        
+        function handleLayerToggle(layerName, isVisible) {
+            if (!globeVisualization) return;
+            
+            console.log(`Toggling layer ${layerName}: ${isVisible ? 'visible' : 'hidden'}`);
+            
+            switch (layerName) {
+                case 'polygon':
+                    globeVisualization.toggleLayer('3d-buildings', isVisible);
+                    break;
+                case 'basic':
+                    // Handle basic layer toggle
+                    break;
+                case 'color':
+                    // Handle color toggle
+                    break;
+                default:
+                    console.log(`Unknown layer: ${layerName}`);
+            }
+        }
+        
+        function handleRangeChange(rangeName, value) {
+            if (!globeVisualization) return;
+            
+            console.log(`Range ${rangeName} changed to: ${value}`);
+            
+            switch (rangeName) {
+                case 'polygon-height':
+                    // Update building heights
+                    break;
+                case 'polygon-scale':
+                    // Update polygon scale
+                    break;
+                case 'elevation-scale':
+                    // Update elevation exaggeration
+                    if (globeVisualization.map) {
+                        globeVisualization.map.setTerrain({ 
+                            'source': 'mapbox-dem', 
+                            'exaggeration': value 
+                        });
+                    }
+                    break;
+                default:
+                    console.log(`Unknown range: ${rangeName}`);
+            }
+        }
+        
+        // Start the application when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+        
+        // Export for debugging
+        window.globeVisualization = globeVisualization;
+    </script>
+</body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBLIVARA - Planetary Threat Detection System</title>
+    
+    <!-- Mapbox CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./css/nasa-theme.css">
+    <link rel="stylesheet" href="./css/mapbox-space-theme.css">
+</head>
+<body>
+    <div class="mapbox-visualization-container">
+        <!-- Main Mapbox Container -->
+        <div id="mapbox-globe" class="mapbox-globe-container"></div>
+        
+        <!-- Left Sidebar - Layers Panel -->
+        <div class="layers-panel">
+            <div class="layers-header">
+                <h2 class="layers-title">Layers</h2>
+            </div>
+            
+            <!-- Basic Layers -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">🌍</span>
+                    Basic
+                </div>
+                
+                <div class="layer-control active" data-layer="basic">
+                    <span class="layer-label">Basic</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+                
+                <div class="layer-control active" data-layer="layer-type">
+                    <span class="layer-label">Layer Type</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+            </div>
+            
+            <!-- Polygons & Buildings -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">🏗️</span>
+                    Polygon
+                </div>
+                
+                <div class="layer-control active" data-layer="polygon">
+                    <span class="layer-label">Polygon</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+                
+                <div class="layer-control active" data-layer="color">
+                    <span class="layer-label">Color</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+                
+                <!-- Color Gradient -->
+                <div class="range-control">
+                    <div class="color-gradient"></div>
+                </div>
+            </div>
+            
+            <!-- Height Controls -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">📏</span>
+                    Polygon Height
+                </div>
+                
+                <div class="range-control">
+                    <input type="range" class="range-slider" id="polygon-height" min="0" max="100" value="50">
+                    <div class="range-value">50</div>
+                </div>
+                
+                <div class="layer-control active" data-layer="enable-height">
+                    <span class="layer-label">Enable Height</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+                
+                <div class="layer-control active" data-layer="polygon-stroke">
+                    <span class="layer-label">Polygon Stroke</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+            </div>
+            
+            <!-- Scale Controls -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">🔧</span>
+                    Scale
+                </div>
+                
+                <div class="range-control">
+                    <label class="layer-label">Polygon Scale</label>
+                    <input type="range" class="range-slider" id="polygon-scale" min="0" max="2" step="0.1" value="1">
+                    <div class="range-value">1.0</div>
+                </div>
+                
+                <div class="range-control">
+                    <label class="layer-label">Elevation Scale</label>
+                    <input type="range" class="range-slider" id="elevation-scale" min="0" max="3" step="0.1" value="1.5">
+                    <div class="range-value">1.5</div>
+                </div>
+            </div>
+            
+            <!-- Rendering Options -->
+            <div class="layer-category">
+                <div class="layer-category-header">
+                    <span class="layer-category-icon">⚙️</span>
+                    Rendering
+                </div>
+                
+                <div class="layer-control active" data-layer="high-precision">
+                    <span class="layer-label">High Precision Rendering</span>
+                    <div class="toggle-switch active"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Data Panel -->
+        <div class="data-panel">
+            <div class="data-panel-header">
+                <h3 class="data-panel-title">Rivers</h3>
+            </div>
+            <div class="data-panel-content">
+                <!-- Threat Information -->
+                <div class="threat-card">
+                    <div class="threat-title">Toms Upstream</div>
+                    <div class="threat-details">
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Segments:</span>
+                            <span class="threat-detail-value">🟡 17,10m</span>
+                        </div>
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Length:</span>
+                            <span class="threat-detail-value">🟡 150°</span>
+                        </div>
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Distance:</span>
+                            <span class="threat-detail-value">77 230km</span>
+                        </div>
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Width:</span>
+                            <span class="threat-detail-value">500 93km</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Debris Information -->
+                <div class="threat-card">
+                    <div class="threat-title">Debris-17o BF3 ⚠️ Potent</div>
+                    <div class="threat-details">
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Normalized:</span>
+                            <span class="threat-detail-value">✓</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Threat Team Information -->
+                <div class="threat-card">
+                    <div class="threat-title">🟦 Zenshuinlb</div>
+                    <div class="threat-details">
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Threat team:</span>
+                            <span class="threat-detail-value">Geo P: 1</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Moon Event -->
+                <div class="threat-card">
+                    <div class="threat-title">Meanor Event</div>
+                    <div class="threat-details">
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">West End Gap:</span>
+                            <span class="threat-detail-value">499.5%</span>
+                        </div>
+                        <div class="threat-detail-row">
+                            <span class="threat-detail-label">Distance:</span>
+                            <span class="threat-detail-value">43.32 km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Control Bar -->
+        <div class="control-bar">
+            <button class="control-btn active" id="add-data-btn">+ ADD DATA</button>
+            <button class="control-btn" id="reset-view-btn">Reset View</button>
+            <button class="control-btn" id="demo-threats-btn">Demo Threats</button>
+            <button class="control-btn" id="fly-sf-btn">Fly to San Francisco</button>
+        </div>
+        
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Mapbox JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    
+    <!-- Our JavaScript -->
+    <script type="module">
+        import { MapboxGlobe } from './src/mapboxGlobe.js';
+        
+        // Global variables
+        let globeVisualization = null;
+        
+        // Initialize the application
+        async function initializeApp() {
+            try {
+                console.log('🚀 Starting OBLIVARA Planetary Threat Detection System...');
+                
+                // Initialize the Mapbox Globe
+                globeVisualization = new MapboxGlobe('mapbox-globe');
+                await globeVisualization.initialize();
+                
+                console.log('✅ Mapbox Globe initialized successfully');
+                
+                // Setup UI event handlers
+                setupUIHandlers();
+                
+                // Hide loading overlay
+                document.getElementById('loading-overlay').style.display = 'none';
+                
+                console.log('🌍 OBLIVARA system fully operational');
+                
+            } catch (error) {
+                console.error('❌ Failed to initialize OBLIVARA system:', error);
+                // Show error message to user
+                document.getElementById('loading-overlay').innerHTML = `
+                    <div style="text-align: center; color: #ff4444;">
+                        <h3>System Initialization Failed</h3>
+                        <p>${error.message}</p>
+                        <button onclick="location.reload()">Retry</button>
+                    </div>
+                `;
+            }
+        }
+        
+        function setupUIHandlers() {
+            // Layer toggle handlers
+            document.querySelectorAll('.layer-control').forEach(control => {
+                control.addEventListener('click', function() {
+                    const toggle = this.querySelector('.toggle-switch');
+                    const isActive = toggle.classList.contains('active');
+                    
+                    if (isActive) {
+                        toggle.classList.remove('active');
+                        this.classList.remove('active');
+                    } else {
+                        toggle.classList.add('active');
+                        this.classList.add('active');
+                    }
+                    
+                    // Handle layer visibility
+                    const layerName = this.getAttribute('data-layer');
+                    handleLayerToggle(layerName, !isActive);
+                });
+            });
+            
+            // Range slider handlers
+            document.querySelectorAll('.range-slider').forEach(slider => {
+                slider.addEventListener('input', function() {
+                    const value = this.value;
+                    const valueDisplay = this.parentElement.querySelector('.range-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = value;
+                    }
+                    
+                    // Handle range changes
+                    handleRangeChange(this.id, parseFloat(value));
+                });
+            });
+            
+            // Control button handlers
+            document.getElementById('add-data-btn').addEventListener('click', () => {
+                console.log('Adding demo data...');
+                globeVisualization.addDemoThreats();
+            });
+            
+            document.getElementById('reset-view-btn').addEventListener('click', () => {
+                console.log('Resetting view...');
+                globeVisualization.resetView();
+            });
+            
+            document.getElementById('demo-threats-btn').addEventListener('click', () => {
+                console.log('Adding demo threats...');
+                globeVisualization.addDemoThreats();
+            });
+            
+            document.getElementById('fly-sf-btn').addEventListener('click', () => {
+                console.log('Flying to San Francisco...');
+                globeVisualization.flyToLocation([-122.4194, 37.7749], 12, 60, 45);
+            });
+            
+            // Window resize handler
+            window.addEventListener('resize', () => {
+                if (globeVisualization) {
+                    globeVisualization.handleResize();
+                }
+            });
+        }
+        
+        function handleLayerToggle(layerName, isVisible) {
+            if (!globeVisualization) return;
+            
+            console.log(`Toggling layer ${layerName}: ${isVisible ? 'visible' : 'hidden'}`);
+            
+            switch (layerName) {
+                case 'polygon':
+                    globeVisualization.toggleLayer('3d-buildings', isVisible);
+                    break;
+                case 'basic':
+                    // Handle basic layer toggle
+                    break;
+                case 'color':
+                    // Handle color toggle
+                    break;
+                default:
+                    console.log(`Unknown layer: ${layerName}`);
+            }
+        }
+        
+        function handleRangeChange(rangeName, value) {
+            if (!globeVisualization) return;
+            
+            console.log(`Range ${rangeName} changed to: ${value}`);
+            
+            switch (rangeName) {
+                case 'polygon-height':
+                    // Update building heights
+                    break;
+                case 'polygon-scale':
+                    // Update polygon scale
+                    break;
+                case 'elevation-scale':
+                    // Update elevation exaggeration
+                    if (globeVisualization.map) {
+                        globeVisualization.map.setTerrain({ 
+                            'source': 'mapbox-dem', 
+                            'exaggeration': value 
+                        });
+                    }
+                    break;
+                default:
+                    console.log(`Unknown range: ${rangeName}`);
+            }
+        }
+        
+        // Start the application when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+        
+        // Export for debugging
+        window.globeVisualization = globeVisualization;
+    </script>
+</body>
+>>>>>>> ddc6646e9269b55bd76bd9bc754674bb3143df8a
+</html>

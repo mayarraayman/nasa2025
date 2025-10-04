@@ -1,0 +1,314 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBLIVARA - Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0f1a;
+            color: white;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #4a9eff;
+            border-radius: 10px;
+        }
+        .success { border-color: #00ff00; }
+        .error { border-color: #ff0000; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #4a9eff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background: #6bb6ff; }
+        #test-results {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 OBLIVARA Integration Test</h1>
+    
+    <div class="test-section" id="mapbox-test">
+        <h2>🗺️ Mapbox Integration Test</h2>
+        <p>Testing Mapbox GL JS loading and access token...</p>
+        <button onclick="testMapbox()">Test Mapbox</button>
+    </div>
+    
+    <div class="test-section" id="module-test">
+        <h2>📦 Module Loading Test</h2>
+        <p>Testing ES6 module imports...</p>
+        <button onclick="testModules()">Test Modules</button>
+    </div>
+    
+    <div class="test-section" id="navigation-test">
+        <h2>🧭 Navigation Test</h2>
+        <p>Testing tab navigation functionality...</p>
+        <button onclick="window.open('index.html', '_blank')">Open Main App</button>
+    </div>
+    
+    <div id="test-results">
+        <h3>Test Results:</h3>
+        <div id="results-content">Click the test buttons above to run tests...</div>
+    </div>
+
+    <!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script>
+        // Set Mapbox access token
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWF5YXJyYWF5bWFuIiwiYSI6ImNtZ2FnYXhiejBzeDYyaXF3aTVpYXdodjgifQ.eXorIlV1O_IQqBMetJVShg';
+        
+        function logResult(test, status, message) {
+            const results = document.getElementById('results-content');
+            const timestamp = new Date().toLocaleTimeString();
+            const statusIcon = status === 'success' ? '✅' : '❌';
+            results.innerHTML += `<div>[${timestamp}] ${statusIcon} ${test}: ${message}</div>`;
+            
+            // Update test section style
+            const section = document.getElementById(test.toLowerCase().replace(' ', '-') + '-test');
+            if (section) {
+                section.classList.remove('success', 'error');
+                section.classList.add(status);
+            }
+        }
+        
+        function testMapbox() {
+            try {
+                if (typeof mapboxgl !== 'undefined') {
+                    logResult('Mapbox', 'success', 'Mapbox GL JS loaded successfully');
+                    
+                    // Test access token
+                    if (mapboxgl.accessToken) {
+                        logResult('Mapbox', 'success', 'Access token is set');
+                    } else {
+                        logResult('Mapbox', 'error', 'Access token is not set');
+                    }
+                    
+                    // Test basic map creation
+                    const testContainer = document.createElement('div');
+                    testContainer.style.width = '100px';
+                    testContainer.style.height = '100px';
+                    testContainer.style.display = 'none';
+                    document.body.appendChild(testContainer);
+                    
+                    const testMap = new mapboxgl.Map({
+                        container: testContainer,
+                        style: 'mapbox://styles/mapbox/satellite-v9',
+                        center: [0, 0],
+                        zoom: 1
+                    });
+                    
+                    testMap.on('load', () => {
+                        logResult('Mapbox', 'success', 'Map instance created successfully');
+                        testMap.remove();
+                        document.body.removeChild(testContainer);
+                    });
+                    
+                    testMap.on('error', (e) => {
+                        logResult('Mapbox', 'error', `Map creation failed: ${e.error.message}`);
+                        testMap.remove();
+                        document.body.removeChild(testContainer);
+                    });
+                    
+                } else {
+                    logResult('Mapbox', 'error', 'Mapbox GL JS not found');
+                }
+            } catch (error) {
+                logResult('Mapbox', 'error', `Error: ${error.message}`);
+            }
+        }
+        
+        async function testModules() {
+            try {
+                // Test if we can load the MapboxGlobe module
+                const { MapboxGlobe } = await import('./src/mapboxGlobe.js');
+                logResult('Module', 'success', 'MapboxGlobe module loaded successfully');
+                
+                // Test if we can load other modules
+                const { UIManager } = await import('./src/uiManager.js');
+                logResult('Module', 'success', 'UIManager module loaded successfully');
+                
+            } catch (error) {
+                logResult('Module', 'error', `Module loading failed: ${error.message}`);
+            }
+        }
+        
+        // Auto-run basic tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                logResult('System', 'success', 'Test page loaded successfully');
+                testMapbox();
+            }, 1000);
+        });
+    </script>
+</body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBLIVARA - Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0f1a;
+            color: white;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #4a9eff;
+            border-radius: 10px;
+        }
+        .success { border-color: #00ff00; }
+        .error { border-color: #ff0000; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #4a9eff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background: #6bb6ff; }
+        #test-results {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 OBLIVARA Integration Test</h1>
+    
+    <div class="test-section" id="mapbox-test">
+        <h2>🗺️ Mapbox Integration Test</h2>
+        <p>Testing Mapbox GL JS loading and access token...</p>
+        <button onclick="testMapbox()">Test Mapbox</button>
+    </div>
+    
+    <div class="test-section" id="module-test">
+        <h2>📦 Module Loading Test</h2>
+        <p>Testing ES6 module imports...</p>
+        <button onclick="testModules()">Test Modules</button>
+    </div>
+    
+    <div class="test-section" id="navigation-test">
+        <h2>🧭 Navigation Test</h2>
+        <p>Testing tab navigation functionality...</p>
+        <button onclick="window.open('index.html', '_blank')">Open Main App</button>
+    </div>
+    
+    <div id="test-results">
+        <h3>Test Results:</h3>
+        <div id="results-content">Click the test buttons above to run tests...</div>
+    </div>
+
+    <!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script>
+        // Set Mapbox access token
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWF5YXJyYWF5bWFuIiwiYSI6ImNtZ2FnYXhiejBzeDYyaXF3aTVpYXdodjgifQ.eXorIlV1O_IQqBMetJVShg';
+        
+        function logResult(test, status, message) {
+            const results = document.getElementById('results-content');
+            const timestamp = new Date().toLocaleTimeString();
+            const statusIcon = status === 'success' ? '✅' : '❌';
+            results.innerHTML += `<div>[${timestamp}] ${statusIcon} ${test}: ${message}</div>`;
+            
+            // Update test section style
+            const section = document.getElementById(test.toLowerCase().replace(' ', '-') + '-test');
+            if (section) {
+                section.classList.remove('success', 'error');
+                section.classList.add(status);
+            }
+        }
+        
+        function testMapbox() {
+            try {
+                if (typeof mapboxgl !== 'undefined') {
+                    logResult('Mapbox', 'success', 'Mapbox GL JS loaded successfully');
+                    
+                    // Test access token
+                    if (mapboxgl.accessToken) {
+                        logResult('Mapbox', 'success', 'Access token is set');
+                    } else {
+                        logResult('Mapbox', 'error', 'Access token is not set');
+                    }
+                    
+                    // Test basic map creation
+                    const testContainer = document.createElement('div');
+                    testContainer.style.width = '100px';
+                    testContainer.style.height = '100px';
+                    testContainer.style.display = 'none';
+                    document.body.appendChild(testContainer);
+                    
+                    const testMap = new mapboxgl.Map({
+                        container: testContainer,
+                        style: 'mapbox://styles/mapbox/satellite-v9',
+                        center: [0, 0],
+                        zoom: 1
+                    });
+                    
+                    testMap.on('load', () => {
+                        logResult('Mapbox', 'success', 'Map instance created successfully');
+                        testMap.remove();
+                        document.body.removeChild(testContainer);
+                    });
+                    
+                    testMap.on('error', (e) => {
+                        logResult('Mapbox', 'error', `Map creation failed: ${e.error.message}`);
+                        testMap.remove();
+                        document.body.removeChild(testContainer);
+                    });
+                    
+                } else {
+                    logResult('Mapbox', 'error', 'Mapbox GL JS not found');
+                }
+            } catch (error) {
+                logResult('Mapbox', 'error', `Error: ${error.message}`);
+            }
+        }
+        
+        async function testModules() {
+            try {
+                // Test if we can load the MapboxGlobe module
+                const { MapboxGlobe } = await import('./src/mapboxGlobe.js');
+                logResult('Module', 'success', 'MapboxGlobe module loaded successfully');
+                
+                // Test if we can load other modules
+                const { UIManager } = await import('./src/uiManager.js');
+                logResult('Module', 'success', 'UIManager module loaded successfully');
+                
+            } catch (error) {
+                logResult('Module', 'error', `Module loading failed: ${error.message}`);
+            }
+        }
+        
+        // Auto-run basic tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                logResult('System', 'success', 'Test page loaded successfully');
+                testMapbox();
+            }, 1000);
+        });
+    </script>
+</body>
+>>>>>>> ddc6646e9269b55bd76bd9bc754674bb3143df8a
+</html>

@@ -1,0 +1,136 @@
+{
+  "asteroids": [
+    {
+      "id": "2001865",
+      "name": "Bennu (101955)",
+      "designation": "101955 Bennu",
+      "diameter": 0.49,
+      "velocity": 28.0,
+      "composition": "carbonaceous",
+      "impactProbability": 0.00037,
+      "magnitude": 20.12,
+      "hazardous": true,
+      "closeApproach": {
+        "date": "2135-09-25",
+        "distance": 750000,
+        "velocity": 28.0
+      },
+      "orbit": {
+        "semiMajorAxis": 1.126,
+        "eccentricity": 0.204,
+        "inclination": 6.035,
+        "period": 436.65
+      },
+      "discovery": {
+        "date": "1999-09-11",
+        "facility": "LINEAR"
+      }
+    },
+    {
+      "id": "20099942",
+      "name": "Apophis (99942)",
+      "designation": "99942 Apophis",
+      "diameter": 0.37,
+      "velocity": 30.73,
+      "composition": "stony",
+      "impactProbability": 0.000001,
+      "magnitude": 19.7,
+      "hazardous": true,
+      "closeApproach": {
+        "date": "2029-04-13",
+        "distance": 31600,
+        "velocity": 7.42
+      },
+      "orbit": {
+        "semiMajorAxis": 0.922,
+        "eccentricity": 0.191,
+        "inclination": 3.331,
+        "period": 323.6
+      },
+      "discovery": {
+        "date": "2004-06-19",
+        "facility": "Kitt Peak"
+      }
+    },
+    {
+      "id": "200162173",
+      "name": "Ryugu (162173)",
+      "designation": "162173 Ryugu",
+      "diameter": 0.87,
+      "velocity": 26.0,
+      "composition": "carbonaceous",
+      "impactProbability": 0.0000001,
+      "magnitude": 19.2,
+      "hazardous": false,
+      "closeApproach": {
+        "date": "2026-12-05",
+        "distance": 4500000,
+        "velocity": 26.0
+      },
+      "orbit": {
+        "semiMajorAxis": 1.190,
+        "eccentricity": 0.190,
+        "inclination": 5.884,
+        "period": 474.0
+      },
+      "discovery": {
+        "date": "1999-05-10",
+        "facility": "LINEAR"
+      }
+    },
+    {
+      "id": "20025143",
+      "name": "Itokawa (25143)",
+      "designation": "25143 Itokawa",
+      "diameter": 0.33,
+      "velocity": 24.6,
+      "composition": "stony",
+      "impactProbability": 0.00000001,
+      "magnitude": 19.2,
+      "hazardous": false,
+      "closeApproach": {
+        "date": "2030-03-15",
+        "distance": 2800000,
+        "velocity": 24.6
+      },
+      "orbit": {
+        "semiMajorAxis": 1.324,
+        "eccentricity": 0.280,
+        "inclination": 1.622,
+        "period": 556.4
+      },
+      "discovery": {
+        "date": "1998-09-26",
+        "facility": "LINEAR"
+      }
+    },
+    {
+      "id": "200433",
+      "name": "Eros (433)",
+      "designation": "433 Eros",
+      "diameter": 16.84,
+      "velocity": 24.36,
+      "composition": "stony",
+      "impactProbability": 0.000000001,
+      "magnitude": 11.16,
+      "hazardous": false,
+      "closeApproach": {
+        "date": "2050-01-23",
+        "distance": 26500000,
+        "velocity": 24.36
+      },
+      "orbit": {
+        "semiMajorAxis": 1.458,
+        "eccentricity": 0.223,
+        "inclination": 10.829,
+        "period": 643.0
+      },
+      "discovery": {
+        "date": "1898-08-13",
+        "facility": "Berlin Observatory"
+      }
+    }
+  ],
+  "lastUpdated": "2024-01-15T12:00:00Z",
+  "source": "NASA JPL Small-Body Database"
+}
